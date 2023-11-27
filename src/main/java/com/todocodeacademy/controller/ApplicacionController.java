@@ -12,8 +12,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.todocodeacademy.entity.Inquilino;
 import com.todocodeacademy.entity.Paciente;
 import com.todocodeacademy.entity.Plato;
+import com.todocodeacademy.entity.Propiedad;
+import com.todocodeacademy.entity.PropiedadDTO;
 
 @RestController
 public class ApplicacionController {
@@ -95,5 +98,24 @@ public class ApplicacionController {
 
 		return listaDePacientesMenores;
 
+	}
+	
+	// DTO 
+	@GetMapping("/propiedad/{id}")
+	@ResponseBody
+	public PropiedadDTO devolverPropiedad(@PathVariable Long id) {
+		// a traves del id buscamos la propiedad
+		// traemos al inquilino asociado a esa propiedad
+		
+		Propiedad prop = new Propiedad(1L, "Avenida Siempre Viva 123", 300.0, 5000.0, "Casa");
+		Inquilino inqui = new Inquilino(1L, "12341234123", "Homero", "Simpson", "Empleado de la planta nuclear");
+		PropiedadDTO propiedadDatos = new PropiedadDTO();
+		propiedadDatos.setDireccion(prop.getDireccion());
+		propiedadDatos.setId_propiedad(prop.getId_propiedad());
+		propiedadDatos.setPrecioAlquiler(prop.getPrecioAlquiler());
+		propiedadDatos.setTipoPropiedad(prop.getTipoPropiedad());
+		propiedadDatos.setInquilinoApellido(inqui.getApellido());
+		propiedadDatos.setInquilinoNombre(inqui.getNombre());
+		return propiedadDatos;
 	}
 }
